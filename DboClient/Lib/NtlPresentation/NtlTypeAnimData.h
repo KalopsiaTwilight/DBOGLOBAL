@@ -27,7 +27,9 @@
  * STypeAnimData: 변하지 않는 Data(Read만 가능)
  * 
  */
-class AnimEvent_CompareFunc : public std::binary_function<SEventAnim *, SEventAnim *, bool> 
+//auto AnimEvent_CompareFunc = [](const SEventAnim* lhs, const SEventAnim* rhs) { return lhs->fTime < rhs->fTime; };
+
+struct AnimEvent_CompareFunc 
 {
 public:
 	bool operator() (const SEventAnim* lhs, const SEventAnim* rhs) const

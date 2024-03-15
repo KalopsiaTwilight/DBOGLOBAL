@@ -23,7 +23,7 @@
 #include "NtlDebug.h"
 
 
-struct STRING_COMPARE_NOCASE : public std::binary_function<std::string, std::string, bool>
+struct STRING_COMPARE_NOCASE
 {
 	static bool compare_nocase(wchar_t c1, wchar_t c2)
 	{

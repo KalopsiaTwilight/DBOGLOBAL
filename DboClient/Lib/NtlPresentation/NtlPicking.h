@@ -9,9 +9,8 @@ class CNtlPLEntity;
 
 
 template<class _Ty>
-class CCompare : public std::binary_function<_Ty, _Ty, bool>
+struct CCompare
 {
-public:
 	bool operator()(const _Ty& _Left, const _Ty& _Right) const
 	{
 		if ( _Left->pPLEntity && _Right->pPLEntity )

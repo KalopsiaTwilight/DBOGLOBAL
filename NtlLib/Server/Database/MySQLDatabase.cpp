@@ -40,7 +40,7 @@ bool MySQLDatabase::Initialize(CNtlString Hostname, unsigned int port, CNtlStrin
 {
 	static bool is_lib_inited = false;
 	MYSQL *temp, *temp2;
-	my_bool my_true = true;
+	bool my_true = true;
 
 	mHostname = Hostname;
 	mConnectionCount = ConnectionCount;
