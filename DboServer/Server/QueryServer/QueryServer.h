@@ -24,11 +24,13 @@ struct sSERVERCONFIG
 	CNtlString		DatabaseUser;
 	CNtlString		DatabasePassword;
 	CNtlString		Database;
+	int				DatabasePort;
 
 	CNtlString		AccDatabaseHost;
 	CNtlString		AccDatabaseUser;
 	CNtlString		AccDatabasePassword;
 	CNtlString		AccDatabase;
+	int				AccDatabasePort;
 
 	CNtlString		strMasterServerIP;
 	WORD			wMasterServerPort;
@@ -50,10 +52,13 @@ public:
 	CNtlString		GetDatabaseUser()		{	return m_config.DatabaseUser;	}
 	CNtlString		GetDatabasePassword()	{	return m_config.DatabasePassword;	}
 	CNtlString		GetDatabase()			{	return m_config.Database;	}
+	int				GetDatabasePort()		{ return m_config.DatabasePort; }
+
 	CNtlString		GetAccDbHost()	{ return m_config.AccDatabaseHost; }
 	CNtlString		GetAccDbUser()	{ return m_config.AccDatabaseUser; }
 	CNtlString		GetAccDbPass()	{ return m_config.AccDatabasePassword; }
 	CNtlString		GetAccDbDatabase() { return m_config.AccDatabase; }
+	int				GetAccDbPort() { return m_config.AccDatabasePort; }
 
 	int				OnInitApp();
 	int				OnAppStart();
@@ -113,6 +118,10 @@ public:
 		{
 			return NTL_ERR_DBC_CONNECTION_CONNECT_FAIL;
 		}
+		if (!file.Read("DATABASE_CHARACTER", "Port", m_config.DatabasePort))
+		{
+			return NTL_ERR_DBC_CONNECTION_CONNECT_FAIL;
+		}
 		//DATABASE_ACCOUNT
 		if (!file.Read("DATABASE_ACCOUNT", "Host", m_config.AccDatabaseHost))
 		{
@@ -127,6 +136,10 @@ public:
 			return NTL_ERR_DBC_CONNECTION_CONNECT_FAIL;
 		}
 		if( !file.Read("DATABASE_ACCOUNT", "Db",  m_config.AccDatabase) )
+		{
+			return NTL_ERR_DBC_CONNECTION_CONNECT_FAIL;
+		}
+		if (!file.Read("DATABASE_ACCOUNT", "Port", m_config.AccDatabasePort))
 		{
 			return NTL_ERR_DBC_CONNECTION_CONNECT_FAIL;
 		}

@@ -87,10 +87,13 @@ public:
 	CNtlString		GetDatabaseUser()	{	return m_config.DatabaseUser;	}
 	CNtlString		GetDatabasePassword()	{	return m_config.DatabasePassword;	}
 	CNtlString		GetDatabaseDatabase()	{	return m_config.Database;	}
+	int				GetDatabasePort() { return m_config.DatabasePort; }
+
 	CNtlString		GetAccDbHost()	{ return m_config.AccDatabaseHost; }
 	CNtlString		GetAccDbUser()	{ return m_config.AccDatabaseUser; }
 	CNtlString		GetAccDbPass()	{ return m_config.AccDatabasePassword; }
 	CNtlString		GetAccDbDatabase() { return m_config.AccDatabase; }
+	int				GetAccDbPort() { return m_config.AccDatabasePort; }
 
 	inline bool		IsDojoChannel() { return m_config.byChannel == DOJO_CHANNEL_INDEX; }
 

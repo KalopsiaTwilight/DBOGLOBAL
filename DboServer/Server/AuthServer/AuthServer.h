@@ -22,6 +22,7 @@ struct sSERVERCONFIG
 	CNtlString		DatabaseUser;
 	CNtlString		DatabasePassword;
 	CNtlString		Database;
+	int				DatabasePort;
 
 	CNtlString		strMasterServerIP;
 	WORD			wMasterServerPort;
@@ -47,6 +48,7 @@ public:
 	CNtlString		GetDatabaseUser()	{	return m_config.DatabaseUser;	}
 	CNtlString		GetDatabasePassword()	{	return m_config.DatabasePassword;	}
 	CNtlString		GetDatabaseName()	{	return m_config.Database;	}
+	unsigned int    GetDatabasePort() { return m_config.DatabasePort; }
 
 	BOOL			GetDisableConnection()	{ return m_config.bDisableConnection; }
 	BOOL			GetFounderConnection()	{ return m_config.bAllowFounderConnection; }
@@ -92,6 +94,10 @@ public:
 			return NTL_ERR_SYS_LOG_SYSTEM_INITIALIZE_FAIL;
 		}
 		if( !file.Read("DATABASE_ACCOUNT", "Db",  m_config.Database) )
+		{
+			return NTL_ERR_DBC_CONNECTION_CONNECT_FAIL;
+		}
+		if (!file.Read("DATABASE_ACCOUNT", "Port", m_config.DatabasePort))
 		{
 			return NTL_ERR_DBC_CONNECTION_CONNECT_FAIL;
 		}
