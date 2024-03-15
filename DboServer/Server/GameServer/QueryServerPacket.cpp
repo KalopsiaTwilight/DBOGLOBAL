@@ -2039,7 +2039,7 @@ void CQueryServerSession::RecvCashitemBuyRes(CNtlPacket* pPacket)
 void CQueryServerSession::RecvPcDataLoadRes(CNtlPacket * pPacket)
 {
 	sQG_PC_DATA_LOAD_RES * req = (sQG_PC_DATA_LOAD_RES*)pPacket->GetPacketData();
-
+	
 	CPlayer* pOwner = g_pObjectManager->FindByChar(req->sPcData.charId);
 	if (pOwner == NULL)
 	{

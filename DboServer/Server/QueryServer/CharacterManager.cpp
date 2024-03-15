@@ -33,9 +33,16 @@ void CCharacterManager::CreateCharacter(ACCOUNTID accountId, sPC_SUMMARY& sSum, 
 {
 	UNREFERENCED_PARAMETER(serverFarmId);
 
-	GetCharDB.Execute("INSERT INTO characters (CharID,CharName,AccountID,Race,Class,Gender,Face,Hair,HairColor,SkinColor,CurLocX,CurLocY,CurLocZ,WorldID,WorldTable,MapInfoIndex,CreateTime)"
-		"VALUES (%u,'%ls',%u,%u,%u,%u,%u,%u,%u,%u,%f,%f,%f,%u,%u,%u,%I64u)",
-		sSum.charId, sSum.awchName, accountId, sSum.byRace, sSum.byClass, sSum.byGender, sSum.byFace, sSum.byHair, sSum.byHairColor, sSum.bySkinColor,
+	smart_ptr<QueryResult> accResult = GetAccDB.Query("SELECT isGm FROM accounts WHERE AccountId = %u LIMIT 1", accountId);
+
+	unsigned int gmLevel = 0;
+	if (accResult) {
+		Field* f = accResult->Fetch();
+		gmLevel = f[0].GetUInt32();
+	}
+	GetCharDB.Execute("INSERT INTO characters (CharID,CharName,AccountID,GameMaster,Race,Class,Gender,Face,Hair,HairColor,SkinColor,CurLocX,CurLocY,CurLocZ,WorldID,WorldTable,MapInfoIndex,CreateTime)"
+		"VALUES (%u,'%ls',%u,%u,%u,%u,%u,%u,%u,%u,%u,%f,%f,%f,%u,%u,%u,%I64u)",
+		sSum.charId, sSum.awchName, accountId, gmLevel, sSum.byRace, sSum.byClass, sSum.byGender, sSum.byFace, sSum.byHair, sSum.byHairColor, sSum.bySkinColor,
 		sSum.fPositionX, sSum.fPositionY, sSum.fPositionZ,
 		sSum.worldId, sSum.worldTblidx, sSum.dwMapInfoIndex, time(0));
 }
