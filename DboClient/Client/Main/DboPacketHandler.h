@@ -762,6 +762,7 @@ void PacketHandler_GUItemExpiredNfy(void* pPacket);
 void PacketHandler_TSChatEnterRes(void *pPacket);
 void PacketHandler_TSChatDisconnectNfy(void *pPacket);
 void PacketHandler_TSChatMsgSay(void *pPacket);
+void PacketHandler_TSChatMsgEmote(void* pPacket);
 void PacketHandler_TSChatMsgShout(void *pPacket);
 void PacketHandler_TSChatMsgWhisper(void *pPacket);
 void PacketHandler_TSChatMsgWhisperFailNfy(void *pPacket);

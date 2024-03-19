@@ -122,6 +122,46 @@ void CClientSession::RecvChatMessageSay(CNtlPacket * pPacket)
 }
 
 //--------------------------------------------------------------------------------------//
+//		Emote Chat
+//--------------------------------------------------------------------------------------//
+void CClientSession::RecvChatMessageEmote(CNtlPacket* pPacket)
+{
+	sUT_CHAT_MESSAGE_EMOTE* req = (sUT_CHAT_MESSAGE_EMOTE*)pPacket->GetPacketData();
+
+	if (cPlayer == NULL || cPlayer->GetPcInitState() == false)
+		return;
+
+	if (cPlayer->GetReadyForCommunityServer() == false)
+	{
+		return;
+	}
+
+	DWORD dwCurTick = GetTickCount();
+
+	if (dwCurTick < m_dwLastMessage)
+		return;
+
+	m_dwLastMessage = dwCurTick + 500;
+
+	WORD wMessageLengthInUnicode = (req->wMessageLengthInUnicode <= NTL_MAX_LENGTH_OF_CHAT_MESSAGE) ? req->wMessageLengthInUnicode : 0;
+	if (wMessageLengthInUnicode == 0)
+		return;
+
+	if (cPlayer->IsMuted())
+		return;
+
+	CNtlPacket packet(sizeof(sTU_CHAT_MESSAGE_EMOTE));
+	sTU_CHAT_MESSAGE_EMOTE* res = (sTU_CHAT_MESSAGE_EMOTE*)packet.GetPacketData();
+	res->wOpCode = TU_CHAT_MESSAGE_EMOTE;
+	NTL_SAFE_WCSNCPY(res->awchMessage, req->awchMessage, req->wMessageLengthInUnicode);
+	res->wMessageLengthInUnicode = req->wMessageLengthInUnicode;
+	res->hSubject = cPlayer->GetID();
+	NTL_SAFE_WCSCPY(res->awchSenderCharName, cPlayer->GetCharName());
+	packet.SetPacketLen(sizeof(sTU_CHAT_MESSAGE_EMOTE));
+	g_pPlayerManager->SendMsgToInRange(&packet, cPlayer, NTL_SAY_MESSAGE_RANGE_IN_METER, cPlayer->GetChannel(), cPlayer->GetWorldID(), true);
+}
+
+//--------------------------------------------------------------------------------------//
 //		Shout Chat
 //--------------------------------------------------------------------------------------//
 void CClientSession::RecvChatShout(CNtlPacket * pPacket)

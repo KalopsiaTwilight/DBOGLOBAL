@@ -55,6 +55,7 @@ enum eOPCODE_UT
 	UT_HLS_SLOT_MACHINE_INFO_REQ,
 	UT_HLS_SLOT_MACHINE_EXTRACT_REQ,
 	UT_HLS_SLOT_MACHINE_WINNER_INFO_REQ,
+	UT_CHAT_MESSAGE_EMOTE,
 
 
 	UT_OPCODE_END_DUMMY,
@@ -81,6 +82,11 @@ END_PROTOCOL()
 BEGIN_PROTOCOL(UT_CHAT_MESSAGE_SAY)
 	WORD				wMessageLengthInUnicode;
 	WCHAR				awchMessage[NTL_MAX_LENGTH_OF_CHAT_MESSAGE + 1];
+END_PROTOCOL()
+//------------------------------------------------------------------
+BEGIN_PROTOCOL(UT_CHAT_MESSAGE_EMOTE)
+WORD				wMessageLengthInUnicode;
+WCHAR				awchMessage[NTL_MAX_LENGTH_OF_CHAT_MESSAGE + 1];
 END_PROTOCOL()
 //------------------------------------------------------------------
 BEGIN_PROTOCOL(UT_CHAT_MESSAGE_SHOUT)

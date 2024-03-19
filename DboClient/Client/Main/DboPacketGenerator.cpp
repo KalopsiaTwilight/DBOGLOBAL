@@ -3544,6 +3544,24 @@ bool CChatPacketGenerator::SendChatMsgSay(const WCHAR *pMsg)
 	return m_pNetSender->SendPacket( iLen, &sPacket ); 
 }
 
+bool CChatPacketGenerator::SendChatMsgEmote(const WCHAR* pMsg)
+{
+	sUT_CHAT_MESSAGE_EMOTE sPacket;
+	memset(&sPacket, 0, sizeof(sPacket));
+
+	sPacket.wOpCode = UT_CHAT_MESSAGE_EMOTE;
+	sPacket.wMessageLengthInUnicode = (WORD)wcslen(pMsg);
+
+	if (sPacket.wMessageLengthInUnicode > NTL_MAX_LENGTH_OF_CHAT_MESSAGE)
+		sPacket.wMessageLengthInUnicode = NTL_MAX_LENGTH_OF_CHAT_MESSAGE;
+
+	wcsncpy_s(sPacket.awchMessage, NTL_MAX_LENGTH_OF_CHAT_MESSAGE + 1, pMsg, sPacket.wMessageLengthInUnicode);
+
+	RwInt32 iLen = sizeof(sPacket) - sizeof(WCHAR) * (NTL_MAX_LENGTH_OF_CHAT_MESSAGE - sPacket.wMessageLengthInUnicode + 1);
+
+	return m_pNetSender->SendPacket(iLen, &sPacket);
+}
+
 bool CChatPacketGenerator::SendChatMsgShout( const WCHAR *pMsg )
 {
 	sUT_CHAT_MESSAGE_SHOUT sPacket;

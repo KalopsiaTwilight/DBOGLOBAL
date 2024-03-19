@@ -367,6 +367,7 @@ public:
 
 	bool SendChatEnterReq(void);
 	bool SendChatMsgSay(const WCHAR *pMsg);
+	bool SendChatMsgEmote(const WCHAR* pMsg);
 	bool SendChatMsgShout(const WCHAR *pMsg);
 	bool SendChatMsgWhisper(const WCHAR *pMsg, const WCHAR *pReceiverName);
 	bool SendChatMsgParty(RwUInt8 byChatType, const WCHAR *pMsg);

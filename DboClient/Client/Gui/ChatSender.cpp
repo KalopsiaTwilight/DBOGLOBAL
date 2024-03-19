@@ -222,6 +222,10 @@ VOID CChatSender::Process_Send( const WCHAR* pText )
 		{
 			CDboEventGenerator::SayMessage(CHAT_TYPE_SYSTEM, Logic_GetAvatarName(), (RwUInt16)strFilterText.size(), strFilterText.c_str(), Logic_GetAvatarHandle());
 		}
+		case CHAT_TYPE_EMOTE:
+		{
+			pChatPacketGenerator->SendChatMsgEmote(strFilterText.c_str());
+		}
 		break;
 	}
 

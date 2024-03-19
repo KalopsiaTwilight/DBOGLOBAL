@@ -127,6 +127,7 @@ enum eOPCODE_TU
 
 	TU_WAGUWAGUCOIN_UPDATE_INFO,
 	TU_EVENTCOIN_UPDATE_INFO,
+	TU_CHAT_MESSAGE_EMOTE,
 
 	TU_OPCODE_END_DUMMY,
 	TU_OPCODE_END = TU_OPCODE_END_DUMMY - 1
@@ -168,6 +169,13 @@ BEGIN_PROTOCOL(TU_CHAT_MESSAGE_SAY)
 	WCHAR				awchSenderCharName[NTL_MAX_SIZE_CHAR_NAME + 1];
 	WORD				wMessageLengthInUnicode;
 	WCHAR				awchMessage[NTL_MAX_LENGTH_OF_CHAT_MESSAGE + 1];
+END_PROTOCOL()
+//------------------------------------------------------------------
+BEGIN_PROTOCOL(TU_CHAT_MESSAGE_EMOTE)
+HOBJECT				hSubject;
+WCHAR				awchSenderCharName[NTL_MAX_SIZE_CHAR_NAME + 1];
+WORD				wMessageLengthInUnicode;
+WCHAR				awchMessage[NTL_MAX_LENGTH_OF_CHAT_MESSAGE + 1];
 END_PROTOCOL()
 //------------------------------------------------------------------
 BEGIN_PROTOCOL(TU_CHAT_MESSAGE_SHOUT)

@@ -277,6 +277,7 @@ bool Logic_ApplyNtlStorageUnit( CNtlStorageUnit* pUnit, unsigned int uiFlags )
 				CNtlSLEventGenerator::GameChatOption( OPTION_CHAT_WINDOWOPACITY, (RwUInt8)pUnit->GetIntData( dSTORAGE_CHAT_WINDOW_OPACITY ) );
 
 				CNtlSLEventGenerator::GameChatOption( OPTION_CHAT_NORMAL, 0, pUnit->GetBoolData( dSTORAGE_CHAT_BASIC_NORMAL ) );
+				CNtlSLEventGenerator::GameChatOption( OPTION_CHAT_EMOTE, 0, pUnit->GetBoolData(dSTORAGE_CHAT_BASIC_EMOTE));
 				CNtlSLEventGenerator::GameChatOption( OPTION_CHAT_WISPHER, 0, pUnit->GetBoolData( dSTORAGE_CHAT_BASIC_WISPHER ) );
 				CNtlSLEventGenerator::GameChatOption( OPTION_CHAT_PARTY, 0, pUnit->GetBoolData( dSTORAGE_CHAT_BASIC_PARTY ) );
 				CNtlSLEventGenerator::GameChatOption(OPTION_CHAT_FIND_PARTY, 0, pUnit->GetBoolData(dSTORAGE_CHAT_BASIC_FIND_PARTY));
@@ -286,6 +287,7 @@ bool Logic_ApplyNtlStorageUnit( CNtlStorageUnit* pUnit, unsigned int uiFlags )
 				CNtlSLEventGenerator::GameChatOption( OPTION_CHAT_SYSTEM, 0, pUnit->GetBoolData( dSTORAGE_CHAT_BASIC_SYSTEM ) );
 
 				CNtlSLEventGenerator::GameChatOption( OPTION_CHAT_NORMAL, 1, pUnit->GetBoolData( dSTORAGE_CHAT_EXTEND_NORMAL ) );
+				CNtlSLEventGenerator::GameChatOption(OPTION_CHAT_EMOTE, 1, pUnit->GetBoolData(dSTORAGE_CHAT_EXTEND_EMOTE));
 				CNtlSLEventGenerator::GameChatOption( OPTION_CHAT_WISPHER, 1, pUnit->GetBoolData( dSTORAGE_CHAT_EXTEND_WISPHER ) );
 				CNtlSLEventGenerator::GameChatOption( OPTION_CHAT_PARTY, 1, pUnit->GetBoolData( dSTORAGE_CHAT_EXTEND_PARTY ) );
 				CNtlSLEventGenerator::GameChatOption(OPTION_CHAT_FIND_PARTY, 1, pUnit->GetBoolData(dSTORAGE_CHAT_EXTEND_FIND_PARTY));
@@ -295,6 +297,7 @@ bool Logic_ApplyNtlStorageUnit( CNtlStorageUnit* pUnit, unsigned int uiFlags )
 				CNtlSLEventGenerator::GameChatOption( OPTION_CHAT_SYSTEM, 1, pUnit->GetBoolData( dSTORAGE_CHAT_EXTEND_SYSTEM ) );
 
 				CNtlSLEventGenerator::GameChatOption(OPTION_CHAT_NORMAL, 2, pUnit->GetBoolData(dSTORAGE_CHAT_EXTEND2_NORMAL));
+				CNtlSLEventGenerator::GameChatOption(OPTION_CHAT_EMOTE, 2, pUnit->GetBoolData(dSTORAGE_CHAT_EXTEND2_EMOTE));
 				CNtlSLEventGenerator::GameChatOption(OPTION_CHAT_WISPHER, 2, pUnit->GetBoolData(dSTORAGE_CHAT_EXTEND2_WISPHER));
 				CNtlSLEventGenerator::GameChatOption(OPTION_CHAT_PARTY, 2, pUnit->GetBoolData(dSTORAGE_CHAT_EXTEND2_PARTY));
 				CNtlSLEventGenerator::GameChatOption(OPTION_CHAT_FIND_PARTY, 2, pUnit->GetBoolData(dSTORAGE_CHAT_EXTEND2_FIND_PARTY));

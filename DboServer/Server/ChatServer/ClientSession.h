@@ -44,6 +44,7 @@ public:
 
 	/*CHAT FUNCTIONS*/
 	void						RecvChatMessageSay(CNtlPacket * pPacket);
+	void						RecvChatMessageEmote(CNtlPacket* pPacket);
 	void						RecvChatShout(CNtlPacket * pPacket);
 	void						RecvChatWhisper(CNtlPacket * pPacket);
 	void						RecvChatParty(CNtlPacket * pPacket);

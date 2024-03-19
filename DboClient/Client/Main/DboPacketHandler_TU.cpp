@@ -59,6 +59,17 @@ void PacketHandler_TSChatMsgSay(void *pPacket)
 	CDboEventGenerator::SayMessage(CHAT_TYPE_GENERAL, pMsgSay->awchSenderCharName, pMsgSay->wMessageLengthInUnicode, pMsgSay->awchMessage, pMsgSay->hSubject);
 }
 
+void PacketHandler_TSChatMsgEmote(void* pPacket)
+{
+	sTU_CHAT_MESSAGE_EMOTE* pMsgSay = (sTU_CHAT_MESSAGE_EMOTE*)pPacket;
+
+	// 블랙리스트(차단) 체크 
+	if (GetNtlSLGlobal()->GetSobAvatar()->GetBlackList()->GetMemberbyName(pMsgSay->awchSenderCharName))
+		return;
+
+	CDboEventGenerator::SayMessage(CHAT_TYPE_EMOTE, pMsgSay->awchSenderCharName, pMsgSay->wMessageLengthInUnicode, pMsgSay->awchMessage, pMsgSay->hSubject);
+}
+
 void PacketHandler_TSChatMsgShout(void *pPacket)
 {
 	sTU_CHAT_MESSAGE_SHOUT *pMsgShout = (sTU_CHAT_MESSAGE_SHOUT*)pPacket;

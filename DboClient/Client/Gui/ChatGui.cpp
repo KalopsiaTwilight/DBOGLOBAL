@@ -82,6 +82,7 @@ RwBool CChatGui::Create(VOID)
 	m_pChatTypeButton[CHAT_TYPE_WHISPER]	= (gui::CButton*)GetComponent( "btnWhisper" );
 	m_pChatTypeButton[CHAT_TYPE_SHOUT]		= (gui::CButton*)GetComponent( "btnShout" );
 	m_pChatTypeButton[CHAT_TYPE_FIND_PARTY] = (gui::CButton*)GetComponent("btnFindParty");
+	m_pChatTypeButton[CHAT_TYPE_EMOTE]      = (gui::CButton*)GetComponent("btnEmote");
 	//m_pChatTypeButton[CHAT_TYPE_RAID] = (gui::CButton*)GetComponent("btnRaid");
 
 	m_pChatTypeButton[CHAT_TYPE_GENERAL]->SetToolTip( GetDisplayStringManager()->GetString("DST_CHAT_MODE_GENERAL") );
@@ -91,6 +92,7 @@ RwBool CChatGui::Create(VOID)
 	m_pChatTypeButton[CHAT_TYPE_WHISPER]->SetToolTip( GetDisplayStringManager()->GetString("DST_CHAT_MODE_WHISPER") );
 	m_pChatTypeButton[CHAT_TYPE_SHOUT]	->SetToolTip( GetDisplayStringManager()->GetString("DST_CHAT_MODE_SHOUT") );
 	m_pChatTypeButton[CHAT_TYPE_FIND_PARTY]->SetToolTip(GetDisplayStringManager()->GetString("DST_CHAT_MODE_FIND_PARTY"));
+	m_pChatTypeButton[CHAT_TYPE_EMOTE]->SetToolTip(GetDisplayStringManager()->GetString("DST_CHAT_MODE_EMOTE"));
 	//m_pChatTypeButton[CHAT_TYPE_RAID]->SetToolTip(GetDisplayStringManager()->GetString("DST_CHAT_MODE_RAID"));
 
 	for( RwUInt8 i = 0 ; i < NUM_NET_CHAT_TYPE ; ++i )
@@ -103,6 +105,7 @@ RwBool CChatGui::Create(VOID)
 	m_pChatTypePanel[CHAT_TYPE_WHISPER]		= (gui::CPanel*)GetComponent( "pnlWhisper" );
 	m_pChatTypePanel[CHAT_TYPE_SHOUT]		= (gui::CPanel*)GetComponent( "pnlShout" );
 	m_pChatTypePanel[CHAT_TYPE_FIND_PARTY] = (gui::CPanel*)GetComponent("pnlFindParty");
+	m_pChatTypePanel[CHAT_TYPE_EMOTE] = (gui::CPanel*)GetComponent("pnlEmote");
 	//m_pChatTypePanel[CHAT_TYPE_RAID]		= (gui::CPanel*)GetComponent("pnlRaid");
 
 	m_pChatTypePanel[CHAT_TYPE_GENERAL]	->SetToolTip( GetDisplayStringManager()->GetString("DST_CHAT_MODE_GENERAL") );
@@ -112,6 +115,7 @@ RwBool CChatGui::Create(VOID)
 	m_pChatTypePanel[CHAT_TYPE_WHISPER]	->SetToolTip( GetDisplayStringManager()->GetString("DST_CHAT_MODE_WHISPER") );
 	m_pChatTypePanel[CHAT_TYPE_SHOUT]	->SetToolTip( GetDisplayStringManager()->GetString("DST_CHAT_MODE_SHOUT") );
 	m_pChatTypePanel[CHAT_TYPE_FIND_PARTY]->SetToolTip(GetDisplayStringManager()->GetString("DST_CHAT_MODE_FIND_PARTY"));
+	m_pChatTypePanel[CHAT_TYPE_EMOTE]->SetToolTip(GetDisplayStringManager()->GetString("DST_CHAT_MODE_EMOTE"));
 	//m_pChatTypePanel[CHAT_TYPE_RAID]->SetToolTip(GetDisplayStringManager()->GetString("DST_CHAT_MODE_RAID"));
 
 	m_pThis->SetPriority(dDIALOGPRIORITY_CHATTING);
@@ -414,7 +418,7 @@ VOID CChatGui::ShowChatButton(eChatType eType, bool bShow)
 
 VOID CChatGui::SetChatType(eChatType eType, const WCHAR* wchReceiverName /*= NULL*/)
 {
-	if( eType >= NUM_NET_CHAT_TYPE )
+	if( eType >= NUM_NET_CHAT_TYPE)
 		return;
 
 	if( eType == CHAT_TYPE_WHISPER )
@@ -507,6 +511,16 @@ VOID CChatGui::SetChatType(eChatType eType, const WCHAR* wchReceiverName /*= NUL
 
 			m_pstbTextType->SetTextColor(uiColor);
 			m_pstbTextType->SetText(GetDisplayStringManager()->GetString("DST_CHAT_MODE_SHOUT"));
+
+			m_pstbTextTypeSmall->SetTextColor(uiColor);
+			m_pstbTextTypeSmall->SetText(L":");
+		}
+		break;
+		case CHAT_TYPE_EMOTE:
+		{
+			uiColor = CHATGUI_COLOR_EMOTE;
+			m_pstbTextType->SetTextColor(uiColor);
+			m_pstbTextType->SetText(GetDisplayStringManager()->GetString("DST_CHAT_MODE_EMOTE"));
 
 			m_pstbTextTypeSmall->SetTextColor(uiColor);
 			m_pstbTextTypeSmall->SetText(L":");
@@ -858,6 +872,17 @@ void CChatGui::OnInputSpaceUp()
 		}
 	}
 
+	// emote
+	if (m_eChatType != CHAT_TYPE_EMOTE)
+	{
+		if (m_pSender->HaveShortCut(wstrOutputText, wstrText, "DST_CHAT_SHORT_CUT_EMOTE", "DST_CHAT_SHORT_CUT_EMOTE_LOCAL"))
+		{
+			SetChatType(CHAT_TYPE_EMOTE);
+			m_pInput->Clear();
+			return;
+		}
+	}
+
 	// whisper
 	if (m_pSender->HaveShortCut(wstrOutputText, wstrText, "DST_CHAT_SHORT_CUT_WHISPER", "DST_CHAT_SHORT_CUT_WHISPER_LOCAL"))
 	{
@@ -1151,6 +1176,11 @@ VOID CChatGui::HandleEvents( RWS::CMsg& msg )
 			case OPTION_CHAT_FIND_PARTY:
 			{
 				Option_DisplayChatLogType(pEvent->byData2, CHAT_TYPE_FIND_PARTY, pEvent->byData3);
+				break;
+			}
+			case OPTION_CHAT_EMOTE:
+			{
+				Option_DisplayChatLogType(pEvent->byData2, CHAT_TYPE_EMOTE, pEvent->byData3);
 				break;
 			}
 			/*case OPTION_CHAT_RAID:

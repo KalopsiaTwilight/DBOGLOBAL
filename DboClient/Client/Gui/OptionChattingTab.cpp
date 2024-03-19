@@ -420,6 +420,10 @@ void COptionChattingList::CreateTree()
 		OCLGDS("DST_OPTION_TOOLTIP_CHAT_NORMAL"));
 	CGuiLineTree::AddNode( pNode, dOPTIONCHATTING_CATEGORY_BASIC );
 
+	pNode = NTL_NEW CCheckBoxNode(this, eCHAT_BASIC_EMOTE, OCLGDS("DST_OPTION_CHATTING_BASIC_EMOTE"),
+		OCLGDS("DST_OPTION_TOOLTIP_CHAT_EMOTE"));
+	CGuiLineTree::AddNode(pNode, dOPTIONCHATTING_CATEGORY_BASIC);
+
 	pNode = NTL_NEW CCheckBoxNode( this, eCHAT_BASIC_WISPHER, OCLGDS("DST_OPTION_CHATTING_BASIC_WISPHER"),
 		OCLGDS("DST_OPTION_TOOLTIP_CHAT_WHISPER"));
 	CGuiLineTree::AddNode( pNode, dOPTIONCHATTING_CATEGORY_BASIC );
@@ -460,6 +464,10 @@ void COptionChattingList::CreateTree()
 		OCLGDS("DST_OPTION_TOOLTIP_CHAT_NORMAL"));
 	CGuiLineTree::AddNode( pNode, dOPTIONCHATTING_CATEGORY_ADDED );
 
+	pNode = NTL_NEW CCheckBoxNode(this, eCHAT_ADDED_EMOTE, OCLGDS("DST_OPTION_CHATTING_ADDED_EMOTE"),
+		OCLGDS("DST_OPTION_TOOLTIP_CHAT_EMOTE"));
+	CGuiLineTree::AddNode(pNode, dOPTIONCHATTING_CATEGORY_ADDED);
+
 	pNode = NTL_NEW CCheckBoxNode( this, eCHAT_ADDED_WISPHER, OCLGDS("DST_OPTION_CHATTING_ADDED_WISPHER"),
 		OCLGDS("DST_OPTION_TOOLTIP_CHAT_WHISPER"));
 	CGuiLineTree::AddNode( pNode, dOPTIONCHATTING_CATEGORY_ADDED );
@@ -499,6 +507,10 @@ void COptionChattingList::CreateTree()
 	// 
 	pNode = NTL_NEW CCheckBoxNode(this, eCHAT_ADDED2_NORMAL, OCLGDS("DST_OPTION_CHATTING_ADDED_NORMAL"),
 		OCLGDS("DST_OPTION_TOOLTIP_CHAT_NORMAL"));
+	CGuiLineTree::AddNode(pNode, dOPTIONCHATTING_CATEGORY_ADDED2);
+
+	pNode = NTL_NEW CCheckBoxNode(this, eCHAT_ADDED2_EMOTE, OCLGDS("DST_OPTION_CHATTING_ADDED_EMOTE"),
+		OCLGDS("DST_OPTION_TOOLTIP_CHAT_EMOTE"));
 	CGuiLineTree::AddNode(pNode, dOPTIONCHATTING_CATEGORY_ADDED2);
 
 	pNode = NTL_NEW CCheckBoxNode(this, eCHAT_ADDED2_WISPHER, OCLGDS("DST_OPTION_CHATTING_ADDED_WISPHER"),
@@ -674,6 +686,9 @@ VOID COptionChatting::LoadSerializer()
 	pNode = static_cast<CCheckBoxNode*>(m_pOptionChattingList->FindNode( eCHAT_BASIC_NORMAL ));
 	pNode->SetDown( GetNtlStorageManager()->GetBoolData( dSTORAGE_CHAT_BASIC_NORMAL ) );
 
+	pNode = static_cast<CCheckBoxNode*>(m_pOptionChattingList->FindNode(eCHAT_BASIC_EMOTE));
+	pNode->SetDown(GetNtlStorageManager()->GetBoolData(dSTORAGE_CHAT_BASIC_EMOTE));
+
 	pNode = static_cast<CCheckBoxNode*>(m_pOptionChattingList->FindNode( eCHAT_BASIC_WISPHER ));
 	pNode->SetDown( GetNtlStorageManager()->GetBoolData( dSTORAGE_CHAT_BASIC_WISPHER ) );
 
@@ -700,6 +715,9 @@ VOID COptionChatting::LoadSerializer()
 	pNode = static_cast<CCheckBoxNode*>(m_pOptionChattingList->FindNode( eCHAT_ADDED_NORMAL ));
 	pNode->SetDown( GetNtlStorageManager()->GetBoolData( dSTORAGE_CHAT_EXTEND_NORMAL ) );
 
+	pNode = static_cast<CCheckBoxNode*>(m_pOptionChattingList->FindNode(eCHAT_ADDED_EMOTE));
+	pNode->SetDown(GetNtlStorageManager()->GetBoolData(dSTORAGE_CHAT_EXTEND_EMOTE));
+
 	pNode = static_cast<CCheckBoxNode*>(m_pOptionChattingList->FindNode( eCHAT_ADDED_WISPHER ));
 	pNode->SetDown( GetNtlStorageManager()->GetBoolData( dSTORAGE_CHAT_EXTEND_WISPHER ) );
 
@@ -725,6 +743,9 @@ VOID COptionChatting::LoadSerializer()
 	//
 	pNode = static_cast<CCheckBoxNode*>(m_pOptionChattingList->FindNode(eCHAT_ADDED2_NORMAL));
 	pNode->SetDown(GetNtlStorageManager()->GetBoolData(dSTORAGE_CHAT_EXTEND2_NORMAL));
+
+	pNode = static_cast<CCheckBoxNode*>(m_pOptionChattingList->FindNode(eCHAT_ADDED2_EMOTE));
+	pNode->SetDown(GetNtlStorageManager()->GetBoolData(dSTORAGE_CHAT_EXTEND2_EMOTE));
 
 	pNode = static_cast<CCheckBoxNode*>(m_pOptionChattingList->FindNode(eCHAT_ADDED2_WISPHER));
 	pNode->SetDown(GetNtlStorageManager()->GetBoolData(dSTORAGE_CHAT_EXTEND2_WISPHER));
@@ -772,6 +793,9 @@ VOID COptionChatting::SaveSerializer()
 	pNode = static_cast<CCheckBoxNode*>(m_pOptionChattingList->FindNode( eCHAT_BASIC_NORMAL ));
 	GetNtlStorageManager()->SetData( dSTORAGE_CHAT_BASIC_NORMAL, pNode->GetDown() );
 
+	pNode = static_cast<CCheckBoxNode*>(m_pOptionChattingList->FindNode(eCHAT_BASIC_EMOTE));
+	GetNtlStorageManager()->SetData(dSTORAGE_CHAT_BASIC_EMOTE, pNode->GetDown());
+
 	pNode = static_cast<CCheckBoxNode*>(m_pOptionChattingList->FindNode( eCHAT_BASIC_WISPHER ));
 	GetNtlStorageManager()->SetData( dSTORAGE_CHAT_BASIC_WISPHER, pNode->GetDown() );
 
@@ -797,6 +821,9 @@ VOID COptionChatting::SaveSerializer()
 	pNode = static_cast<CCheckBoxNode*>(m_pOptionChattingList->FindNode( eCHAT_ADDED_NORMAL ));
 	GetNtlStorageManager()->SetData( dSTORAGE_CHAT_EXTEND_NORMAL, pNode->GetDown() );
 
+	pNode = static_cast<CCheckBoxNode*>(m_pOptionChattingList->FindNode(eCHAT_ADDED_EMOTE));
+	GetNtlStorageManager()->SetData(dSTORAGE_CHAT_EXTEND_EMOTE, pNode->GetDown());
+
 	pNode = static_cast<CCheckBoxNode*>(m_pOptionChattingList->FindNode( eCHAT_ADDED_WISPHER ));
 	GetNtlStorageManager()->SetData( dSTORAGE_CHAT_EXTEND_WISPHER, pNode->GetDown() );
 
@@ -821,6 +848,9 @@ VOID COptionChatting::SaveSerializer()
 	//
 	pNode = static_cast<CCheckBoxNode*>(m_pOptionChattingList->FindNode(eCHAT_ADDED2_NORMAL));
 	GetNtlStorageManager()->SetData(dSTORAGE_CHAT_EXTEND2_NORMAL, pNode->GetDown());
+
+	pNode = static_cast<CCheckBoxNode*>(m_pOptionChattingList->FindNode(eCHAT_ADDED2_EMOTE));
+	GetNtlStorageManager()->SetData(dSTORAGE_CHAT_EXTEND2_EMOTE, pNode->GetDown());
 
 	pNode = static_cast<CCheckBoxNode*>(m_pOptionChattingList->FindNode(eCHAT_ADDED2_WISPHER));
 	GetNtlStorageManager()->SetData(dSTORAGE_CHAT_EXTEND2_WISPHER, pNode->GetDown());
@@ -868,6 +898,9 @@ VOID COptionChatting::DefaultOption()
 	pNode = static_cast<CCheckBoxNode*>(m_pOptionChattingList->FindNode( eCHAT_BASIC_NORMAL ));
 	pNode->SetDown( GetNtlStorageMTContainer()->GetDefaultBool( dSTORAGE_CHAT_BASIC_NORMAL ) );
 
+	pNode = static_cast<CCheckBoxNode*>(m_pOptionChattingList->FindNode(eCHAT_BASIC_EMOTE));
+	pNode->SetDown(GetNtlStorageMTContainer()->GetDefaultBool(dSTORAGE_CHAT_BASIC_EMOTE));
+
 	pNode = static_cast<CCheckBoxNode*>(m_pOptionChattingList->FindNode( eCHAT_BASIC_WISPHER ));
 	pNode->SetDown( GetNtlStorageMTContainer()->GetDefaultBool( dSTORAGE_CHAT_BASIC_WISPHER ) );
 
@@ -893,6 +926,9 @@ VOID COptionChatting::DefaultOption()
 	pNode = static_cast<CCheckBoxNode*>(m_pOptionChattingList->FindNode( eCHAT_ADDED_NORMAL ));
 	pNode->SetDown( GetNtlStorageMTContainer()->GetDefaultBool( dSTORAGE_CHAT_EXTEND_NORMAL ) );
 
+	pNode = static_cast<CCheckBoxNode*>(m_pOptionChattingList->FindNode(eCHAT_ADDED_EMOTE));
+	pNode->SetDown(GetNtlStorageMTContainer()->GetDefaultBool(dSTORAGE_CHAT_EXTEND_EMOTE));
+
 	pNode = static_cast<CCheckBoxNode*>(m_pOptionChattingList->FindNode( eCHAT_ADDED_WISPHER ));
 	pNode->SetDown( GetNtlStorageMTContainer()->GetDefaultBool( dSTORAGE_CHAT_EXTEND_WISPHER ) );
 
@@ -917,6 +953,9 @@ VOID COptionChatting::DefaultOption()
 	//
 	pNode = static_cast<CCheckBoxNode*>(m_pOptionChattingList->FindNode(eCHAT_ADDED2_NORMAL));
 	pNode->SetDown(GetNtlStorageMTContainer()->GetDefaultBool(dSTORAGE_CHAT_EXTEND2_NORMAL));
+
+	pNode = static_cast<CCheckBoxNode*>(m_pOptionChattingList->FindNode(eCHAT_ADDED2_EMOTE));
+	pNode->SetDown(GetNtlStorageMTContainer()->GetDefaultBool(dSTORAGE_CHAT_EXTEND2_EMOTE));
 
 	pNode = static_cast<CCheckBoxNode*>(m_pOptionChattingList->FindNode(eCHAT_ADDED2_WISPHER));
 	pNode->SetDown(GetNtlStorageMTContainer()->GetDefaultBool(dSTORAGE_CHAT_EXTEND2_WISPHER));

@@ -179,6 +179,11 @@ const WCHAR * CChatReceiver::GetMsgTypeString(BYTE byMsgType, BYTE byChannelID)
 		{
 			return GetDisplayStringManager()->GetString("DST_CHAT_MODE_SHOUT");
 		}
+		break;		
+		case CHAT_TYPE_EMOTE:
+		{
+			return GetDisplayStringManager()->GetString("DST_CHAT_MODE_EMOTE");
+		}
 		break;
 
 		default: break;
@@ -400,6 +405,11 @@ VOID CChatReceiver::HandleEvents( RWS::CMsg &msg )
 		{
 			swprintf_s(wchBuffer, CHAT_MSG_BUFFER_LEN, L"%s: %s", pSayMessage->wchUserName, pSayMessage->wchMessage);
 			bBalloon = true;
+		}
+		else if (pSayMessage->byMsgType == CHAT_TYPE_EMOTE)
+		{
+			swprintf_s(wchBuffer, CHAT_MSG_BUFFER_LEN, L"%s %s", pSayMessage->wchUserName, pSayMessage->wchMessage);
+			bBalloon = false;
 		}
 		else if (pSayMessage->byMsgType == CHAT_TYPE_WHISPER)
 		{

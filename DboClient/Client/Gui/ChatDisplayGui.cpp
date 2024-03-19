@@ -184,7 +184,7 @@ VOID CChatDisplayGui::Show(bool bShow)
 
 VOID CChatDisplayGui::AddText(RwUInt8 byChatType, const WCHAR* pwcText)
 {
-	if( byChatType >= NUM_ALL_CHAT_TYPE )
+	if( byChatType >= NUM_ALL_CHAT_TYPE)
 		return;	
 
 	if( m_EnableLogType[byChatType] == FALSE )
@@ -201,6 +201,7 @@ VOID CChatDisplayGui::AddText(RwUInt8 byChatType, const WCHAR* pwcText)
 		case CHAT_TYPE_TRADE:		uiColor = CHATGUI_COLOR_TRADE;		break;
 		case CHAT_TYPE_FIND_PARTY:	uiColor = CHATGUI_COLOR_FIND_PARTY;	break;
 		case CHAT_TYPE_SHOUT:		uiColor = CHATGUI_COLOR_SHOUT;		break;
+		case CHAT_TYPE_EMOTE:		uiColor = CHATGUI_COLOR_EMOTE;		break;
 		case CHAT_TYPE_SYSTEM:		uiColor = CHATGUI_COLOR_SYSTEM_WARN;		break;
 		case CHAT_TYPE_NOTIFY:		uiColor = CHATGUI_COLOR_SYSTEM_NOTICE;		break;
 		default:

@@ -631,6 +631,7 @@ void RegisterPacketHandler(void)
 	CNtlPacketHandler::Register(TU_ENTER_CHAT_RES, PacketHandler_TSChatEnterRes);
 	CNtlPacketHandler::Register(TU_DISCONNECTED_NFY, PacketHandler_TSChatDisconnectNfy);	
 	CNtlPacketHandler::Register(TU_CHAT_MESSAGE_SAY, PacketHandler_TSChatMsgSay);
+	CNtlPacketHandler::Register(TU_CHAT_MESSAGE_EMOTE, PacketHandler_TSChatMsgEmote);
 	CNtlPacketHandler::Register(TU_CHAT_MESSAGE_WHISPER, PacketHandler_TSChatMsgWhisper);
 	CNtlPacketHandler::Register(TU_CHAT_MESSAGE_WHISPER_FAILED_NFY, PacketHandler_TSChatMsgWhisperFailNfy);
 	CNtlPacketHandler::Register(TU_CHAT_MESSAGE_SHOUT, PacketHandler_TSChatMsgShout);

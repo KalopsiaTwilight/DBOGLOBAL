@@ -121,9 +121,17 @@ RwBool CChatOptionGui::Create(CChatGui* pChatGui)
 	m_pChatTypeButton[CHAT_TYPE_SHOUT]		= (gui::CButton*)GetComponent("btnShout");
 	m_pToggleQuickButton[CHAT_TYPE_SHOUT]	= (gui::CButton*)GetComponent("btnToggleShout");
 
-	m_pShoutcut[CHAT_TYPE_SHOUT]->SetText( GetDisplayStringManager()->GetString("DST_CHAT_SHORT_CUT_SHOUT") );
-	m_pShoutcutExplain[CHAT_TYPE_SHOUT]->SetText( GetDisplayStringManager()->GetString("DST_CHAT_MODE_SHOUT") );
-	
+	m_pShoutcut[CHAT_TYPE_SHOUT]->SetText(GetDisplayStringManager()->GetString("DST_CHAT_SHORT_CUT_SHOUT"));
+	m_pShoutcutExplain[CHAT_TYPE_SHOUT]->SetText(GetDisplayStringManager()->GetString("DST_CHAT_MODE_SHOUT"));
+
+	// Emote
+	m_pShoutcut[CHAT_TYPE_EMOTE] = (gui::CStaticBox*)GetComponent("stbShortcutEmote");
+	m_pShoutcutExplain[CHAT_TYPE_EMOTE] = (gui::CStaticBox*)GetComponent("stbShortcutEmoteExplain");
+	m_pChatTypeButton[CHAT_TYPE_EMOTE] = (gui::CButton*)GetComponent("btnEmote");
+	m_pToggleQuickButton[CHAT_TYPE_EMOTE] = (gui::CButton*)GetComponent("btnToggleEmote");
+
+	m_pShoutcut[CHAT_TYPE_EMOTE]->SetText(GetDisplayStringManager()->GetString("DST_CHAT_SHORT_CUT_EMOTE"));
+	m_pShoutcutExplain[CHAT_TYPE_EMOTE]->SetText(GetDisplayStringManager()->GetString("DST_CHAT_MODE_EMOTE"));
 
 	for( RwUInt8 i = 0 ; i < NUM_NET_CHAT_TYPE ; ++i )
 	{
@@ -145,6 +153,7 @@ RwBool CChatOptionGui::Create(CChatGui* pChatGui)
 
 
 	EnableCatting(CHAT_TYPE_GENERAL,	true);
+	EnableCatting(CHAT_TYPE_EMOTE,      true);
 	EnableCatting(CHAT_TYPE_TRADE,		true);
 	EnableCatting(CHAT_TYPE_FIND_PARTY, true);
 	EnableCatting(CHAT_TYPE_GUILD,		false);
