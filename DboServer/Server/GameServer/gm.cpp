@@ -24,6 +24,7 @@
 #include "DragonballScramble.h"
 #include "HoneyBeeEvent.h"
 #include "ItemDrop.h"
+#include "BotAiState_Idle.h"
 
 
 void gm_read_command(sUG_SERVER_COMMAND* sPacket, CPlayer* pPlayer)
@@ -69,7 +70,26 @@ void gm_read_command(sUG_SERVER_COMMAND* sPacket, CPlayer* pPlayer)
 }
 
 
+template<typename ... Args>
+void do_feedback(CPlayer* pTarget, const std::string& format, Args ... args)
+{
+	int size_s = std::snprintf(nullptr, 0, format.c_str(), args ...) + 1; // Extra space for '\0'
+	if (size_s <= 0) { throw std::runtime_error("Error during formatting."); }
+	auto size = static_cast<size_t>(size_s);
+	std::unique_ptr<char[]> buf(new char[size]);
+	std::snprintf(buf.get(), size, format.c_str(), args ...);
+	std::string text = std::string(buf.get(), buf.get() + size - 1); // We don't want the '\0' inside
 
+
+	CNtlPacket packet(sizeof(sGU_SYSTEM_DISPLAY_TEXT));
+	sGU_SYSTEM_DISPLAY_TEXT* res = (sGU_SYSTEM_DISPLAY_TEXT*)packet.GetPacketData();
+	res->wOpCode = GU_SYSTEM_DISPLAY_TEXT;
+	res->wMessageLengthInUnicode = (WORD)text.length();
+	res->byDisplayType = SERVER_TEXT_SYSTEM;
+	wcscpy_s(res->awchMessage, NTL_MAX_LENGTH_OF_CHAT_MESSAGE + 1, s2ws(text).c_str());
+	packet.SetPacketLen(sizeof(sGU_SYSTEM_DISPLAY_TEXT));
+	pTarget->SendPacket(&packet);
+}
 
 ACMD(do_setspeed);
 ACMD(do_addmob);
@@ -122,6 +142,9 @@ ACMD(do_addmudosa);
 ACMD(do_start);
 ACMD(do_createloot);
 ACMD(do_test);
+ACMD(do_delnpc);
+ACMD(do_setnpcfriendly);
+ACMD(do_getnpcinfo);
 
 struct command_info cmd_info[] =
 {
@@ -177,6 +200,10 @@ struct command_info cmd_info[] =
 	{ "@createloot", do_createloot, ADMIN_LEVEL_ADMIN },
 	{ "@test", do_test, ADMIN_LEVEL_ADMIN },
 
+	{ "@delnpc", do_delnpc, ADMIN_LEVEL_ADMIN },
+	{ "@setfriendly", do_setnpcfriendly, ADMIN_LEVEL_ADMIN },
+	{ "@npcinfo", do_getnpcinfo, ADMIN_LEVEL_ADMIN },
+
 	{ "@qwasawedsadas", NULL, ADMIN_LEVEL_ADMIN }
 };
 
@@ -231,8 +258,9 @@ ACMD(do_addmob)
 
 		CMonster* pMob = (CMonster*)g_pObjectManager->CreateCharacter(OBJTYPE_MOB);
 		pMob->CreateDataAndSpawn(pPlayer->GetWorldID(), pMOBTblData, &sMobSpawn, false, 0);
+		do_feedback(pPlayer, "Spawned a new mob with entry id: '%u'", MobId);
 	}
-	else ERR_LOG(LOG_GENERAL, "mob not found %u. GM %u", MobId, pPlayer->GetCharID());
+	else do_feedback(pPlayer, "Could not find mob with entry id: '%u'.", MobId);
 }
 
 ACMD(do_addmobgroup)
@@ -841,7 +869,6 @@ ACMD(do_world)
 	}
 }
 
-
 ACMD(do_warp)
 {
 	pToken->PopToPeek();
@@ -1007,7 +1034,6 @@ ACMD(do_bann)
 	}
 }
 
-
 ACMD(do_dbann)
 {
 	CGameServer* app = (CGameServer*)g_pApp;
@@ -1051,7 +1077,6 @@ ACMD(do_dbann)
 	app->SendTo(app->GetQueryServerSession(), &pQry);
 }
 
-
 ACMD(do_purge) //despawn all monster around player
 {
 	CWorldCell* pWorldCell = pPlayer->GetCurWorldCell();
@@ -1091,7 +1116,6 @@ ACMD(do_purge) //despawn all monster around player
 		}
 	}
 }
-
 
 ACMD(do_unstuck)
 {
@@ -1349,7 +1373,6 @@ ACMD(do_go)
 	pPlayer->StartTeleport(vLoc, pPlayer->GetCurDir(), pPlayer->GetWorldID(), TELEPORT_TYPE_COMMAND);
 }
 
-
 ACMD(do_addtitle)
 {
 	CGameServer* app = (CGameServer*)g_pApp;
@@ -1383,7 +1406,6 @@ ACMD(do_addtitle)
 		pTarget->AddCharTitle(titleIdx - 1);
 	}
 }
-
 
 ACMD(do_deltitle)
 {
@@ -1419,7 +1441,6 @@ ACMD(do_deltitle)
 	}
 }
 
-
 ACMD(do_setitemduration)
 {
 	CGameServer* app = (CGameServer*)g_pApp;
@@ -1447,7 +1468,6 @@ ACMD(do_setitemduration)
 		app->SendTo(app->GetQueryServerSession(), &pQry);
 	}
 }
-
 
 ACMD(do_bind)
 {
@@ -1855,4 +1875,74 @@ ACMD(do_createloot)
 ACMD(do_test)
 {
 	pPlayer->SendCharStateFalling(NTL_MOVE_NONE);
+}
+
+ACMD(do_delnpc) {
+
+	//pToken->PopToPeek();
+	//std::string strToken = pToken->PeekNextToken(NULL, &iLine);
+	//float fSpeed = (float)atof(strToken.c_str());
+
+	CCharacter* pTarget = g_pObjectManager->GetChar(pPlayer->GetTargetHandle());
+	if (pTarget && !pTarget->IsPC())
+	{
+		g_pObjectManager->DestroyCharacter(pTarget);
+		//g_pObjectManager->DeleteUID(pTarget->GetID());
+
+		do_feedback(pPlayer, "Target removed!");
+	}
+	else {
+		do_feedback(pPlayer, "You do not have a valid target selected.");
+	}
+}
+
+ACMD(do_setnpcfriendly)
+{
+	CCharacter* pTarget = g_pObjectManager->GetChar(pPlayer->GetTargetHandle());
+	if (pTarget && pTarget->IsMonster())
+	{
+		pTarget->ChangeFightMode(false);
+
+		CBotAiState_Idle* pState = new CBotAiState_Idle(pTarget->GetBotController()->GetContolObject());
+		pTarget->GetBotController()->ChangeAiState(pState);
+		pTarget->ChangeTarget(INVALID_HOBJECT);
+		pTarget->GetStateManager()->AddConditionFlags(CHARCOND_FLAG_ATTACK_DISALLOW, true);
+		pTarget->GetBotController()->SetControlBlock(true);
+
+		do_feedback(pPlayer, "Target permanently set to idle state.");
+	}
+	else {
+		do_feedback(pPlayer, "You do not have a valid target selected.");
+	}
+}
+
+ACMD(do_getnpcinfo)
+{
+	CCharacter* pTarget = g_pObjectManager->GetChar(pPlayer->GetTargetHandle());
+	if (pTarget && (pTarget->IsMonster() || pTarget->IsNPC()))
+	{
+		if (pTarget->IsNPC()) {
+			CNpc* pNpc = g_pObjectManager->GetNpc(pPlayer->GetTargetHandle());
+			sNPC_TBLDAT* tblDat = pNpc->GetTbldat();
+
+			//do_feedback(pPlayer, "Name: %s", pNpc->GetTbldat()->Name);
+			if (tblDat) {
+				do_feedback(pPlayer, "Entry ID: %u", tblDat->tblidx);
+			}
+			do_feedback(pPlayer, "Creature ID: %u", pTarget->GetID());
+		}
+		else
+		{
+			CMonster* pMob = g_pObjectManager->GetMob(pPlayer->GetTargetHandle());
+			sMOB_TBLDAT* tblDat = pMob->GetTbldat();
+			if (tblDat) {
+				//do_feedback(pPlayer, "Name: %s", pMob->GetTbldat()->Name);
+				do_feedback(pPlayer, "Entry ID: %u", tblDat->tblidx);
+			}
+			do_feedback(pPlayer, "Creature ID: %u", pTarget->GetID());
+		}
+	}
+	else {
+		do_feedback(pPlayer, "You do not have a valid target selected.");
+	}
 }
