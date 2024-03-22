@@ -220,6 +220,7 @@
     <ClCompile Include="BudokaiManager.cpp" />
     <ClCompile Include="BusSystem.cpp" />
     <ClCompile Include="calcs.cpp" />
+    <ClCompile Include="CharacterCommands.cpp" />
     <ClCompile Include="CharState.cpp" />
     <ClCompile Include="BotStateManager.cpp" />
     <ClCompile Include="BotState_AirDashAccel.cpp" />
@@ -269,6 +270,7 @@
     <ClCompile Include="CharacterObject.cpp" />
     <ClCompile Include="char.cpp" />
     <ClCompile Include="CheckupEndCondition.cpp" />
+    <ClCompile Include="CommandsBase.cpp" />
     <ClCompile Include="ComplexState.cpp" />
     <ClCompile Include="ConditionState.cpp" />
     <ClCompile Include="ConditionState_AfterEffect.cpp" />
@@ -332,6 +334,7 @@
     <ClCompile Include="HoneyBeeEvent.cpp" />
     <ClCompile Include="HtbSkill.cpp" />
     <ClCompile Include="HtbSkillManager.cpp" />
+    <ClCompile Include="LookupCommands.cpp" />
     <ClCompile Include="mg_opcodes.cpp" />
     <ClCompile Include="PlayerItemContainer.cpp" />
     <ClCompile Include="qg_opcodes.cpp" />
@@ -486,6 +489,7 @@
     <ClCompile Include="TqsAlgoStage_Stage.cpp" />
     <ClCompile Include="TQSNodeAction_Function.cpp" />
     <ClCompile Include="UltimateDungeon.cpp" />
+    <ClCompile Include="comutils.cpp" />
     <ClCompile Include="WpsAlgoObject.cpp" />
     <ClCompile Include="ScriptAlgoObjectManager.cpp" />
     <ClCompile Include="WpsAlgoStageFailed.cpp" />
@@ -886,6 +890,7 @@
     <ClInclude Include="BotPathFinder.h" />
     <ClInclude Include="BudokaiManager.h" />
     <ClInclude Include="BusSystem.h" />
+    <ClInclude Include="CharacterCommands.h" />
     <ClInclude Include="CharState.h" />
     <ClInclude Include="BotStateManager.h" />
     <ClInclude Include="BotState_AirDashAccel.h" />
@@ -934,6 +939,7 @@
     <ClInclude Include="CharacterAttPC.h" />
     <ClInclude Include="CharacterObject.h" />
     <ClInclude Include="char.h" />
+    <ClInclude Include="CommandsBase.h" />
     <ClInclude Include="ComplexState.h" />
     <ClInclude Include="ConditionState_AfterEffect.h" />
     <ClInclude Include="ConditionState_AttackDisallow.h" />
@@ -997,6 +1003,7 @@
     <ClInclude Include="HoneyBeeEvent.h" />
     <ClInclude Include="HtbSkill.h" />
     <ClInclude Include="HtbSkillManager.h" />
+    <ClInclude Include="LookupCommands.h" />
     <ClInclude Include="mg_opcodes.h" />
     <ClInclude Include="PlayerItemContainer.h" />
     <ClInclude Include="qg_opcodes.h" />
@@ -1158,6 +1165,7 @@
     <ClInclude Include="TqsAlgoStage_Stage.h" />
     <ClInclude Include="TQSNodeAction_Function.h" />
     <ClInclude Include="UltimateDungeon.h" />
+    <ClInclude Include="comutils.h" />
     <ClInclude Include="WpsAlgoObject.h" />
     <ClInclude Include="ScriptAlgoObjectManager.h" />
     <ClInclude Include="ScriptAlgoState.h" />

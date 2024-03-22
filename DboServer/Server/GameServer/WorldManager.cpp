@@ -31,9 +31,6 @@ int CWorldManager::Create(CWorldFactory *pWorldFactory, CWorldTable *pWorldTable
 	{
 		sWORLD_TBLDAT* pWorldData = (sWORLD_TBLDAT*)(iterTable->second);
 
-		if (pWorldData->tblidx == 430000) //dont bother creating the DBO_TEST world.
-			continue;
-
 		if (pWorldData->bDynamic)
 		{
 			if (pWorldData->tblidx < DYNAMIC_WORLD_SEPARATOR)

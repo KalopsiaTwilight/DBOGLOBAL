@@ -5,7 +5,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <RemoteDebuggerWorkingDirectory>C:\Users\Administrator\Desktop\DBOG</RemoteDebuggerWorkingDirectory>
-    <DebuggerFlavor>WindowsRemoteDebugger</DebuggerFlavor>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
     <RemoteDebuggerCommandArguments>
     </RemoteDebuggerCommandArguments>
     <RemoteDebuggerServerName>78.46.46.169</RemoteDebuggerServerName>

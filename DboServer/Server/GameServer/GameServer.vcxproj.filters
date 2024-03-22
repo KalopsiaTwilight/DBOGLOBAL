@@ -610,6 +610,12 @@
     <Filter Include="BUS SYSTEM">
       <UniqueIdentifier>{bbe5dce7-73d1-43c1-96cd-e7eb2151c11f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Commands">
+      <UniqueIdentifier>{0b0157d1-b876-4452-a17b-edf77ffbcd63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{f7a1b28d-ac81-4e21-95a2-28f3a3e35186}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ClientSession.cpp">
@@ -677,9 +683,6 @@
     </ClCompile>
     <ClCompile Include="ShenronManager.cpp">
       <Filter>character NEW\Monster\Npc\Shenron</Filter>
-    </ClCompile>
-    <ClCompile Include="gm.cpp">
-      <Filter>character NEW\Player\GM</Filter>
     </ClCompile>
     <ClCompile Include="DojoManager.cpp">
       <Filter>Guild/DOJO</Filter>
@@ -2595,6 +2598,21 @@
     <ClCompile Include="HoneyBeeEvent.cpp">
       <Filter>In-Game Event System\HoneyBee</Filter>
     </ClCompile>
+    <ClCompile Include="gm.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="comutils.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterCommands.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandsBase.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="LookupCommands.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClientSession.h">
@@ -2656,9 +2674,6 @@
     </ClInclude>
     <ClInclude Include="calcs.h">
       <Filter>utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="gm.h">
-      <Filter>character NEW\Player\GM</Filter>
     </ClInclude>
     <ClInclude Include="DojoManager.h">
       <Filter>Guild/DOJO</Filter>
@@ -4624,6 +4639,21 @@
     </ClInclude>
     <ClInclude Include="HoneyBeeEvent.h">
       <Filter>In-Game Event System\HoneyBee</Filter>
+    </ClInclude>
+    <ClInclude Include="gm.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="comutils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterCommands.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandsBase.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="LookupCommands.h">
+      <Filter>Commands</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
