@@ -1732,3 +1732,27 @@ void CDboEventGenerator::OpenScouterBackgroundGui()
 {
     SEND_MSG(g_EventOpenScouterBackgroundGui, NULL);
 }
+
+// CUSTOM
+
+void CDboEventGenerator::NpcMsgEvent(RwUInt8 byMsgType, const WCHAR* pNpcName, RwUInt16 wMsgLen, const WCHAR* pMessage, RwUInt32 hObject /* = INVALID_SERIAL_ID */, BYTE byChannel /*= 0xff*/)
+{
+	SDboEventNpcMessage data;
+	memset(&data, 0, sizeof(data));
+	data.byMsgType = byMsgType;
+	data.uiSerial = hObject;
+
+	if (pNpcName)
+		NTL_SAFE_WCSCPY(data.npcName, pNpcName);
+
+	if (pMessage)
+		NTL_SAFE_WCSCPY(data.wchMessage, pMessage);
+
+	data.byChannel = byChannel;
+
+	RWS::CMsg msg;
+	msg.Id = g_EventNpcMsg;
+	msg.pData = reinterpret_cast<void*>(&data);
+
+	_SendMsg(msg);
+}

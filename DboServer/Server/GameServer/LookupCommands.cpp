@@ -35,7 +35,7 @@ ACMD(LookupCommands::LookupEntry)
 		return;
 	}
 
-	do_feedback(pPlayer, L"Unknown subcommand '%s'.", strToken);
+	do_feedback(pPlayer, L"Unknown subcommand '%S'.", strToken);
 }
 
 ACMD(LookupCommands::LookupItem)

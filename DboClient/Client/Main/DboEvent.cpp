@@ -267,3 +267,7 @@ RWS::CEventId g_EventNetMarbleMemberShipNfy;
 //-------------------------------------------------------
 // test code
 RWS::CEventId g_EventSCS;
+
+
+// CUSTOM
+RWS::CEventId g_EventNpcMsg;

@@ -33,7 +33,7 @@ void CObjectManager::SpawnNpcAndMob()
 	//dont spawn anything on dojo channel
 	if (app->IsDojoChannel())
 		return;
-	
+
 	for (CTable::TABLEIT itpWorld = pWorld->Begin(); itpWorld != pWorld->End(); itpWorld++)
 	{
 		BYTE bySpawnFlag = 0;
@@ -114,7 +114,7 @@ void CObjectManager::SpawnNpcAndMob()
 								if (!pMob->CreateDataAndSpawn(pWorldTblData->tblidx, pMOBTblData, pMOBSpwnTblData, true, bySpawnFlag))
 								{
 									ERR_LOG(LOG_SYSTEM, "Failed to create monster on server start. Tblidx %u World %u spawn location %f %f %f", pMOBTblData->tblidx, pWorldTblData->tblidx, pMOBSpwnTblData->vSpawn_Loc.x, pMOBSpwnTblData->vSpawn_Loc.y, pMOBSpwnTblData->vSpawn_Loc.z);
-										
+
 									m_map_CharByUID.erase(pMob->GetID());
 									m_objectArray[pMob->GetID() - MAX_GAME_OBJECT] = NULL;
 									delete pMob;
@@ -205,14 +205,14 @@ CGameObject* CObjectManager::CreateCharacter(eOBJTYPE objtype, CHARACTERID CharI
 
 	switch (objtype)
 	{
-		case OBJTYPE_PC: {	ch = new CPlayer; } break;
-		case OBJTYPE_NPC: {	ch = new CNpc;	} break;
-		case OBJTYPE_MOB: {	ch = new CMonster;	} break;
-		case OBJTYPE_SUMMON_PET: {	ch = new CSummonPet;	} break;
-		case OBJTYPE_TOBJECT: {} break;
-		case OBJTYPE_DYNAMIC: {} break;
+	case OBJTYPE_PC: { ch = new CPlayer; } break;
+	case OBJTYPE_NPC: { ch = new CNpc; } break;
+	case OBJTYPE_MOB: { ch = new CMonster; } break;
+	case OBJTYPE_SUMMON_PET: { ch = new CSummonPet; } break;
+	case OBJTYPE_TOBJECT: {} break;
+	case OBJTYPE_DYNAMIC: {} break;
 
-		default:{ ERR_LOG(LOG_SYSTEM, "ERROR Object type %d not available", objtype); return NULL; }
+	default: { ERR_LOG(LOG_SYSTEM, "ERROR Object type %d not available", objtype); return NULL; }
 	}
 
 	UINT32 uiArrayID = UnsignedSafeDecrease<UINT32>(hHandle, MAX_GAME_OBJECT);
@@ -230,7 +230,7 @@ CGameObject* CObjectManager::CreateCharacter(eOBJTYPE objtype, CHARACTERID CharI
 	{
 		m_map_pkChrByPID.insert(std::make_pair(CharID, static_cast<CPlayer*>(ch)));
 
-	//	ERR_LOG(LOG_GENERAL, "Create player hHandle %u. id inside obj array %u \n", hHandle, hHandle - MAX_GAME_OBJECT);
+		//	ERR_LOG(LOG_GENERAL, "Create player hHandle %u. id inside obj array %u \n", hHandle, hHandle - MAX_GAME_OBJECT);
 	}
 
 	if (m_objectArray[uiArrayID])
@@ -267,32 +267,32 @@ CCharacter* CObjectManager::GetChar(eOBJTYPE eObjType, HOBJECT hHandle)
 {
 	switch (eObjType)
 	{
-		case OBJTYPE_PC:
-		{
-			return GetPC(hHandle);
-		}
-		break;
-		case OBJTYPE_NPC:
-		{
-			return GetNpc(hHandle);
-		}
-		break;
-		case OBJTYPE_MOB:
-		{
-			return GetMob(hHandle);
-		}
-		break;
-		case OBJTYPE_SUMMON_PET:
-		{
-			return GetSummonPet(hHandle);
-		}
-		break;
+	case OBJTYPE_PC:
+	{
+		return GetPC(hHandle);
+	}
+	break;
+	case OBJTYPE_NPC:
+	{
+		return GetNpc(hHandle);
+	}
+	break;
+	case OBJTYPE_MOB:
+	{
+		return GetMob(hHandle);
+	}
+	break;
+	case OBJTYPE_SUMMON_PET:
+	{
+		return GetSummonPet(hHandle);
+	}
+	break;
 
-		default:
-		{
-			ERR_LOG(LOG_SYSTEM, "fail : eObjType(%d), handle(%d)", eObjType, hHandle);
-		}
-		break;
+	default:
+	{
+		ERR_LOG(LOG_SYSTEM, "fail : eObjType(%d), handle(%d)", eObjType, hHandle);
+	}
+	break;
 	}
 
 	return NULL;
@@ -318,7 +318,7 @@ CMonster* CObjectManager::GetMob(HOBJECT hHandle)
 	return dynamic_cast<CMonster*>(GetObjectA(hHandle));
 }
 
-CSummonPet * CObjectManager::GetSummonPet(HOBJECT hHandle)
+CSummonPet* CObjectManager::GetSummonPet(HOBJECT hHandle)
 {
 	return dynamic_cast<CSummonPet*>(GetObjectA(hHandle));
 }
@@ -328,7 +328,7 @@ CPlayer* CObjectManager::FindByAccount(ACCOUNTID uiAccId)
 	for (auto it = m_map_pkChrByPID.begin(); it != m_map_pkChrByPID.end(); it++)
 	{
 		CPlayer* found = it->second;
-		if(found)
+		if (found)
 		{
 			if (found->GetAccountID() == uiAccId && found->GetClientSession())
 				return found;
@@ -353,7 +353,7 @@ CPlayer* CObjectManager::FindByName(WCHAR* wszCharName)
 	for (auto it = m_map_pkChrByPID.begin(); it != m_map_pkChrByPID.end(); it++)
 	{
 		CPlayer* found = it->second;
-		if(found)
+		if (found)
 		{
 			if (_wcsicmp(found->GetCharName(), wszCharName) == 0 && found->GetClientSession())
 			{
@@ -368,7 +368,7 @@ CPlayer* CObjectManager::FindByName(const WCHAR* wszCharName)
 	for (auto it = m_map_pkChrByPID.begin(); it != m_map_pkChrByPID.end(); it++)
 	{
 		CPlayer* found = it->second;
-		if(found && found->IsInitialized())
+		if (found && found->IsInitialized())
 		{
 			if (_wcsicmp(found->GetCharName(), wszCharName) == 0)
 			{
@@ -381,7 +381,7 @@ CPlayer* CObjectManager::FindByName(const WCHAR* wszCharName)
 
 void CObjectManager::DestroyCharacter(CGameObject* ch)
 {
-	if(ch->IsPC())
+	if (ch->IsPC())
 	{
 		CPlayer* plr = static_cast<CPlayer*>(ch);
 		m_map_pkChrByPID.erase(plr->GetCharID());
@@ -486,7 +486,7 @@ void CObjectManager::ProcessDelayDeleteMap()
 					}
 				}
 
-			//	ERR_LOG(LOG_GENERAL, "Delete object type %u id %u", ch->GetObjType(), ch->GetID());
+				//	ERR_LOG(LOG_GENERAL, "Delete object type %u id %u", ch->GetObjType(), ch->GetID());
 				m_map_CharByUID.erase(ch->GetID());
 				DeleteUID(ch->GetID());
 
@@ -503,7 +503,7 @@ void CObjectManager::ProcessDelayDeleteMap()
 //--------------------------------------------------------------------------------------//
 //		SEND PACKET TO ALL PLAYERS
 //--------------------------------------------------------------------------------------//
-void CObjectManager::SendPacketToAll(CNtlPacket * pPacket)
+void CObjectManager::SendPacketToAll(CNtlPacket* pPacket)
 {
 	for (auto it = m_map_pkChrByPID.begin(); it != m_map_pkChrByPID.end(); it++)
 	{
@@ -532,12 +532,12 @@ bool CObjectManager::DisconnectAll()
 //--------------------------------------------------------------------------------------//
 //		SEND PACKET TO ALL PLAYERS IN ZONE
 //--------------------------------------------------------------------------------------//
-void CObjectManager::SendToAllInZone(ZONEID zoneId, CNtlPacket * pPacket)
+void CObjectManager::SendToAllInZone(ZONEID zoneId, CNtlPacket* pPacket)
 {
 	for (auto it = m_map_pkChrByPID.begin(); it != m_map_pkChrByPID.end(); it++)
 	{
 		CPlayer* ch = it->second;
-		if(ch && ch->IsInitialized())
+		if (ch && ch->IsInitialized())
 		{
 			if (ch->GetMapNameTblidx() / 1000 == zoneId)
 				ch->SendPacket(pPacket);
@@ -545,3 +545,20 @@ void CObjectManager::SendToAllInZone(ZONEID zoneId, CNtlPacket * pPacket)
 	}
 }
 
+//--------------------------------------------------------------------------------------//
+//		SEND PACKET TO ALL PLAYERS IN RANGE OF OBJECT
+//--------------------------------------------------------------------------------------//
+void CObjectManager::SendToPlayersInRangeFrom(CSpawnObject* obj, CNtlPacket* pPacket, float distance)
+{
+	for (auto it = m_map_pkChrByPID.begin(); it != m_map_pkChrByPID.end(); it++)
+	{
+		CPlayer* ch = it->second;
+		if (ch && ch->IsInitialized() && ch->GetWorldID() == obj->GetWorldID())
+		{
+			if (NtlGetDistance(ch->GetCurLoc(), obj->GetCurLoc()) <= distance)
+			{
+				ch->SendPacket(pPacket);
+			}
+		}
+	}
+}

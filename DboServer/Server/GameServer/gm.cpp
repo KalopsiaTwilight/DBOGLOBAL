@@ -29,6 +29,7 @@
 #include "LookupCommands.h"
 #include "CharTitleTable.h"
 #include "comutils.h"
+#include "NpcCommands.h"
 
 template<typename ... Args>
 static void do_feedback(CPlayer* pTarget, const std::wstring& format, Args ... args)
@@ -147,9 +148,7 @@ ACMD(do_addmudosa);
 ACMD(do_start);
 ACMD(do_createloot);
 ACMD(do_test);
-ACMD(do_delnpc);
 ACMD(do_setnpcfriendly);
-ACMD(do_getnpcinfo);
 
 struct command_info cmd_info[] =
 {
@@ -205,9 +204,9 @@ struct command_info cmd_info[] =
 	{ "@createloot", do_createloot, ADMIN_LEVEL_ADMIN },
 	{ "@test", do_test, ADMIN_LEVEL_ADMIN },
 
-	{ "@delnpc", do_delnpc, ADMIN_LEVEL_ADMIN },
 	{ "@setfriendly", do_setnpcfriendly, ADMIN_LEVEL_ADMIN },
-	{ "@npcinfo", do_getnpcinfo, ADMIN_LEVEL_ADMIN },
+
+	{ "@npc", NpcCommands::Entry, ADMIN_LEVEL_ADMIN },
 	{ "@lookup", LookupCommands::LookupEntry, ADMIN_LEVEL_ADMIN },
 
 	{ "@qwasawedsadas", NULL, ADMIN_LEVEL_ADMIN }
@@ -2182,25 +2181,6 @@ ACMD(do_test)
 	pPlayer->SendCharStateFalling(NTL_MOVE_NONE);
 }
 
-ACMD(do_delnpc) {
-
-	//pToken->PopToPeek();
-	//std::string strToken = pToken->PeekNextToken(NULL, &iLine);
-	//float fSpeed = (float)atof(strToken.c_str());
-
-	CCharacter* pTarget = g_pObjectManager->GetChar(pPlayer->GetTargetHandle());
-	if (pTarget && !pTarget->IsPC())
-	{
-		g_pObjectManager->DestroyCharacter(pTarget);
-		//g_pObjectManager->DeleteUID(pTarget->GetID());
-
-		do_feedback(pPlayer, L"Target removed!");
-	}
-	else {
-		do_feedback(pPlayer, L"You do not have a valid target selected.");
-	}
-}
-
 ACMD(do_setnpcfriendly)
 {
 	CCharacter* pTarget = g_pObjectManager->GetChar(pPlayer->GetTargetHandle());
@@ -2215,37 +2195,6 @@ ACMD(do_setnpcfriendly)
 		pTarget->GetBotController()->SetControlBlock(true);
 
 		do_feedback(pPlayer, L"Target permanently set to idle state.");
-	}
-	else {
-		do_feedback(pPlayer, L"You do not have a valid target selected.");
-	}
-}
-
-ACMD(do_getnpcinfo)
-{
-	CCharacter* pTarget = g_pObjectManager->GetChar(pPlayer->GetTargetHandle());
-	if (pTarget && (pTarget->IsMonster() || pTarget->IsNPC()))
-	{
-		if (pTarget->IsNPC()) {
-			CNpc* pNpc = g_pObjectManager->GetNpc(pPlayer->GetTargetHandle());
-			sNPC_TBLDAT* tblDat = pNpc->GetTbldat();
-
-			//do_feedback(pPlayer, L"Name: %s", pNpc->GetTbldat()->Name);
-			if (tblDat) {
-				do_feedback(pPlayer, L"Entry ID: %u", tblDat->tblidx);
-			}
-			do_feedback(pPlayer, L"Creature ID: %u", pTarget->GetID());
-		}
-		else
-		{
-			CMonster* pMob = g_pObjectManager->GetMob(pPlayer->GetTargetHandle());
-			sMOB_TBLDAT* tblDat = pMob->GetTbldat();
-			if (tblDat) {
-				//do_feedback(pPlayer, L"Name: %s", pMob->GetTbldat()->Name);
-				do_feedback(pPlayer, L"Entry ID: %u", tblDat->tblidx);
-			}
-			do_feedback(pPlayer, L"Creature ID: %u", pTarget->GetID());
-		}
 	}
 	else {
 		do_feedback(pPlayer, L"You do not have a valid target selected.");

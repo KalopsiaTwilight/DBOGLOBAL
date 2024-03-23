@@ -722,6 +722,10 @@ enum eOPCODE_GU
 	GU_EVENT_SCHEDULING_START,
 	GU_EVENT_SCHEDULING_END,
 
+	GU_NPC_SAY,
+	GU_NPC_EMOTE,
+	GU_NPC_SHOUT,
+
 
 	GU_OPCODE_END_DUMMY,
 	GU_OPCODE_END = GU_OPCODE_END_DUMMY - 1,
@@ -4566,5 +4570,22 @@ BYTE				byDeleteItemPlace;
 BYTE				byDeleteItemPos;
 HOBJECT				hDeleteItem;
 END_PROTOCOL()
-
+//------------------------------------------------------------------
+BEGIN_PROTOCOL(GU_NPC_SAY)
+HOBJECT				hSubject;				
+WORD				wTextLen;				
+WCHAR				msgText[NTL_MAX_LENGTH_OF_CHAT_MESSAGE + 1];
+END_PROTOCOL()
+//------------------------------------------------------------------
+BEGIN_PROTOCOL(GU_NPC_EMOTE)
+HOBJECT				hSubject;
+WORD				wTextLen;
+WCHAR				msgText[NTL_MAX_LENGTH_OF_CHAT_MESSAGE + 1];
+END_PROTOCOL()
+//------------------------------------------------------------------
+BEGIN_PROTOCOL(GU_NPC_SHOUT)
+HOBJECT				hSubject;
+WORD				wTextLen;
+WCHAR				msgText[NTL_MAX_LENGTH_OF_CHAT_MESSAGE + 1];
+END_PROTOCOL()
 #pragma pack(pop)

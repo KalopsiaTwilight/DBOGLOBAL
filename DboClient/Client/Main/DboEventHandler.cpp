@@ -215,6 +215,9 @@ RwBool CDboEventHandler::Create(void)
 	
 	//test		
 	RegisterMsg(g_EventSCS, "g_EventSCS", "" );
+
+	// CUSTOM
+	RegisterMsg(g_EventNpcMsg, "g_EventNpcMsg", "");
 	
 	LinkMsg(g_EventVirtualServerPacket, 0);
 	LinkMsg(g_EventNetSendError, 0);
@@ -394,6 +397,9 @@ void CDboEventHandler::Destroy(void)
 	UnRegisterMsg(g_EventHLShopEventItemAddNfy);
 	UnRegisterMsg(g_EventHLShopEventItemDelNfy);
 	UnRegisterMsg(g_EventHLShopEventItemGiftRes);
+
+	// CUSTOM
+	UnRegisterMsg(g_EventNpcMsg);
 			
 	UnRegisterMsg(g_EventSCS);		
 	NTL_RETURNVOID();

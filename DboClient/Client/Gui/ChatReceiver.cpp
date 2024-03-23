@@ -42,6 +42,7 @@ RwBool CChatReceiver::Create(CChatGui* pChatGui)
 	LinkMsg(g_EventDiceResultShow);
 	LinkMsg(g_EventSkillInfoText);
 	LinkMsg(g_EventSobBattleNotification);
+	LinkMsg(g_EventNpcMsg);
 
 	NTL_RETURN(TRUE);
 }
@@ -66,6 +67,7 @@ VOID CChatReceiver::Destroy()
 	UnLinkMsg(g_EventDiceResultShow);
 	UnLinkMsg(g_EventSkillInfoText);
 	UnLinkMsg(g_EventSobBattleNotification);
+	UnLinkMsg(g_EventNpcMsg);
 
 	NTL_RETURNVOID();
 }
@@ -523,6 +525,44 @@ VOID CChatReceiver::HandleEvents( RWS::CMsg &msg )
 	{
 		BattleNotification(msg);
 	}
+	else if (msg.Id == g_EventNpcMsg)
+	{
+		SDboEventNpcMessage* pSayMessage = reinterpret_cast<SDboEventNpcMessage*>(msg.pData);
+
+		memset(wchBuffer, 0, sizeof(wchBuffer));
+
+		bool bBalloon = false;
+		int bBalloonType = 1;
+		//const WCHAR* wchMsgType = GetMsgTypeString(pSayMessage->byMsgType, pSayMessage->byChannel);
+
+		if (pSayMessage->byMsgType == CHAT_TYPE_GENERAL || pSayMessage->byMsgType == CHAT_TYPE_SHOUT) // "all" message
+		{
+			swprintf_s(wchBuffer, CHAT_MSG_BUFFER_LEN, L"%s: %s", pSayMessage->npcName, pSayMessage->wchMessage);
+			bBalloon = true;
+			bBalloonType = pSayMessage->byMsgType == CHAT_TYPE_GENERAL ? 3 : 1;
+		}
+		else if (pSayMessage->byMsgType == CHAT_TYPE_EMOTE)
+		{
+			swprintf_s(wchBuffer, CHAT_MSG_BUFFER_LEN, L"%s %s", pSayMessage->npcName, pSayMessage->wchMessage);
+			bBalloon = false;
+		}
+		if (bBalloon)
+		{
+			// Boost speech bubbles
+			if (pSayMessage->uiSerial != INVALID_SERIAL_ID)
+			{
+				CNtlSob* pObject = GetNtlSobManager()->GetSobObject(pSayMessage->uiSerial);
+				if (pObject)
+				{
+					GetBalloonManager()->AddNPCBalloon(pObject, pSayMessage->wchMessage, 10, 1, true, bBalloonType);
+				}
+			}
+		}
+
+		Chatlog_Save(pSayMessage->byMsgType, wchBuffer);
+		Chatlog_Notify(pSayMessage->byMsgType, wchBuffer);
+	}
+
 
 	NTL_RETURNVOID();
 }

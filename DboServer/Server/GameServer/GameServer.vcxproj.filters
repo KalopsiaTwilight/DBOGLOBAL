@@ -2613,6 +2613,9 @@
     <ClCompile Include="LookupCommands.cpp">
       <Filter>Commands</Filter>
     </ClCompile>
+    <ClCompile Include="NpcCommands.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClientSession.h">
@@ -4653,6 +4656,9 @@
       <Filter>Commands</Filter>
     </ClInclude>
     <ClInclude Include="LookupCommands.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="NpcCommands.h">
       <Filter>Commands</Filter>
     </ClInclude>
   </ItemGroup>

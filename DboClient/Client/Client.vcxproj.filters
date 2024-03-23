@@ -1211,6 +1211,9 @@
     <ClCompile Include="ScouterMeasureDlgGui.cpp">
       <Filter>Gui\Component\Game\Scouter</Filter>
     </ClCompile>
+    <ClCompile Include="DboPacketHandler_Custom.cpp">
+      <Filter>Main\PacketHandler</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gui\ContractGui.h">

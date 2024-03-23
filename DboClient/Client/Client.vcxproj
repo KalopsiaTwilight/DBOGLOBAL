@@ -118,6 +118,7 @@
     <ClCompile Include="CCBDNotifyGui.cpp" />
     <ClCompile Include="CCBDRewardGui.cpp" />
     <ClCompile Include="CCBDStatusGui.cpp" />
+    <ClCompile Include="DboPacketHandler_Custom.cpp" />
     <ClCompile Include="Gui\ActionNotifyGui.cpp" />
     <ClCompile Include="Gui\AlarmManager.cpp" />
     <ClCompile Include="Gui\AltarGui.cpp">

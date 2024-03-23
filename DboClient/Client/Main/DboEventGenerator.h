@@ -270,6 +270,9 @@ public:
     // 한국 상용화 관련
     static void UpdateNetPy(NETP netPy, NETP dwAccumulationNetP, DWORD timeNextGainTime);       
     static void NetMarbleMemberShipNfy();
+
+	// CUSTOM
+	static void NpcMsgEvent(RwUInt8 byMsgType, const WCHAR* pNpcName, RwUInt16 wMsgLen, const WCHAR* pMessage, RwUInt32 hObject = 0xffffffff, BYTE byChannel = 0xff);
 };
 
 #endif

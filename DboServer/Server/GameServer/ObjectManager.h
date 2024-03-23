@@ -14,6 +14,7 @@ class CNpc;
 class CCharacterObject;
 class CCharacter;
 class CSummonPet;
+class CSpawnObject;
 
 class CObjectManager : public CNtlSingleton<CObjectManager>
 {
@@ -74,6 +75,8 @@ public:
 	bool								DisconnectAll();
 
 	void								SendToAllInZone(ZONEID zoneId, CNtlPacket * pPacket);
+
+	void								SendToPlayersInRangeFrom(CSpawnObject* obj, CNtlPacket* pPacket, float distance = 100.0f);
 
 private:
 

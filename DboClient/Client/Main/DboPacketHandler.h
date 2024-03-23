@@ -762,7 +762,6 @@ void PacketHandler_GUItemExpiredNfy(void* pPacket);
 void PacketHandler_TSChatEnterRes(void *pPacket);
 void PacketHandler_TSChatDisconnectNfy(void *pPacket);
 void PacketHandler_TSChatMsgSay(void *pPacket);
-void PacketHandler_TSChatMsgEmote(void* pPacket);
 void PacketHandler_TSChatMsgShout(void *pPacket);
 void PacketHandler_TSChatMsgWhisper(void *pPacket);
 void PacketHandler_TSChatMsgWhisperFailNfy(void *pPacket);
@@ -915,5 +914,11 @@ void PacketHandler_GUCashItemRecvGiftNfy(void* pPacket);
 
 // QuickSlot
 void Packethandler_GUQuickSlotDelNfy( void* pPacket );
+
+// CUSTOM
+void PacketHandler_TSChatMsgEmote(void* pPacket);
+void PacketHandler_GUNpcSay(void* pPacket);
+void PacketHandler_GUNpcEmote(void* pPacket);
+void PacketHandler_GUNpcShout(void* pPacket);
 
 #endif
