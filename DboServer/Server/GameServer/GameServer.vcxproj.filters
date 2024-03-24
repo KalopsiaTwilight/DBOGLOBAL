@@ -2616,6 +2616,12 @@
     <ClCompile Include="NpcCommands.cpp">
       <Filter>Commands</Filter>
     </ClCompile>
+    <ClCompile Include="MiscCommands.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="BotAiState_FollowPC.cpp">
+      <Filter>character NEW\Monster\BOT AI\state</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClientSession.h">
@@ -4660,6 +4666,12 @@
     </ClInclude>
     <ClInclude Include="NpcCommands.h">
       <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="MiscCommands.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="BotAiState_FollowPC.h">
+      <Filter>character NEW\Monster\BOT AI\state</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -202,6 +202,7 @@
     <ClCompile Include="BotAiState_Enter.cpp" />
     <ClCompile Include="BotAiState_Faint.cpp" />
     <ClCompile Include="BotAiState_Fight.cpp" />
+    <ClCompile Include="BotAiState_FollowPC.cpp" />
     <ClCompile Include="BotAiState_Idle.cpp" />
     <ClCompile Include="BotAiState_Leave.cpp" />
     <ClCompile Include="BotAiState_Return.cpp" />
@@ -336,6 +337,7 @@
     <ClCompile Include="HtbSkillManager.cpp" />
     <ClCompile Include="LookupCommands.cpp" />
     <ClCompile Include="mg_opcodes.cpp" />
+    <ClCompile Include="MiscCommands.cpp" />
     <ClCompile Include="NpcCommands.cpp" />
     <ClCompile Include="PlayerItemContainer.cpp" />
     <ClCompile Include="qg_opcodes.cpp" />
@@ -874,6 +876,7 @@
     <ClInclude Include="BotAiState_Enter.h" />
     <ClInclude Include="BotAiState_Faint.h" />
     <ClInclude Include="BotAiState_Fight.h" />
+    <ClInclude Include="BotAiState_FollowPC.h" />
     <ClInclude Include="BotAiState_Idle.h" />
     <ClInclude Include="BotAiState_Leave.h" />
     <ClInclude Include="BotAiState_Return.h" />
@@ -1006,6 +1009,7 @@
     <ClInclude Include="HtbSkillManager.h" />
     <ClInclude Include="LookupCommands.h" />
     <ClInclude Include="mg_opcodes.h" />
+    <ClInclude Include="MiscCommands.h" />
     <ClInclude Include="NpcCommands.h" />
     <ClInclude Include="PlayerItemContainer.h" />
     <ClInclude Include="qg_opcodes.h" />

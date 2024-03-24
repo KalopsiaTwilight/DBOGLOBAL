@@ -231,6 +231,9 @@ public:
 
 	sCHAR_STUN &		GetCharStun() { return m_sCharStun; }
 
+	bool				GetFightBlocked() { return m_bFightBlocked;  }
+	void				SetFightBlocked(bool bVal) { m_bFightBlocked = bVal; }
+
 protected:
 
 	bool				RefreshObjectRadius();
@@ -272,6 +275,8 @@ protected:
 
 	bool	m_bAttackProgress;
 	bool	m_bFightMode;
+
+	bool	m_bFightBlocked;
 
 	bool	m_bNeedToIgnoreDistance;
 

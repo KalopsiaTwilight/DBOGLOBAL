@@ -1666,6 +1666,11 @@ bool CNpc::ConsiderTurnDir(CNtlVector& rDestDir)
 
 HOBJECT CNpc::ConsiderAttackTarget(DWORD dwTickTime)
 {
+	if (m_bFightBlocked)
+	{
+		return INVALID_HOBJECT;
+	}
+
 	if (m_pStateManager->IsCharCondition(CHARCOND_TAUNT) && GetTargetListManager()->GetTauntTarget() != INVALID_HOBJECT)
 	{
 		if (IsTargetAttackble(GetTargetListManager()->GetTauntTarget(), GetTbldat()->wSight_Range))

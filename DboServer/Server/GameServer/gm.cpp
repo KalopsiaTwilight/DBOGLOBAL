@@ -30,6 +30,7 @@
 #include "CharTitleTable.h"
 #include "comutils.h"
 #include "NpcCommands.h"
+#include "MiscCommands.h"
 
 template<typename ... Args>
 static void do_feedback(CPlayer* pTarget, const std::wstring& format, Args ... args)
@@ -208,6 +209,7 @@ struct command_info cmd_info[] =
 
 	{ "@npc", NpcCommands::Entry, ADMIN_LEVEL_ADMIN },
 	{ "@lookup", LookupCommands::LookupEntry, ADMIN_LEVEL_ADMIN },
+	{ "@misc", MiscCommands::Entry, ADMIN_LEVEL_ADMIN },
 
 	{ "@qwasawedsadas", NULL, ADMIN_LEVEL_ADMIN }
 };
@@ -260,10 +262,10 @@ ACMD(do_addmob)
 	sMobSpawn.vSpawn_Dir.CopyFrom(spawndir);
 	sMobSpawn.vSpawn_Loc.CopyFrom(spawnloc);
 	sMobSpawn.dwParty_Index = INVALID_DWORD;
-	sMobSpawn.byMove_Range = 30;
-	sMobSpawn.bySpawn_Move_Type = SPAWN_MOVE_WANDER;
-	sMobSpawn.bySpawn_Loc_Range = 30;
-	sMobSpawn.byWander_Range = 30;
+	sMobSpawn.byMove_Range = 0;
+	sMobSpawn.bySpawn_Move_Type = SPAWN_MOVE_UNKNOWN;
+	sMobSpawn.bySpawn_Loc_Range = 0;
+	sMobSpawn.byWander_Range = 0;
 	sMobSpawn.path_Table_Index = INVALID_TBLIDX;
 	sMobSpawn.playScript = INVALID_TBLIDX;
 	sMobSpawn.playScriptScene = INVALID_TBLIDX;
@@ -2186,15 +2188,15 @@ ACMD(do_setnpcfriendly)
 	CCharacter* pTarget = g_pObjectManager->GetChar(pPlayer->GetTargetHandle());
 	if (pTarget && pTarget->IsMonster())
 	{
-		pTarget->ChangeFightMode(false);
 
 		CBotAiState_Idle* pState = new CBotAiState_Idle(pTarget->GetBotController()->GetContolObject());
 		pTarget->GetBotController()->ChangeAiState(pState);
+
 		pTarget->ChangeTarget(INVALID_HOBJECT);
 		pTarget->GetStateManager()->AddConditionFlags(CHARCOND_FLAG_ATTACK_DISALLOW, true);
-		pTarget->GetBotController()->SetControlBlock(true);
+		pTarget->GetBotController()->GetContolObject()->SetFightBlocked(true);
 
-		do_feedback(pPlayer, L"Target permanently set to idle state.");
+		do_feedback(pPlayer, L"Target returned to idle state and blocked from fighting.");
 	}
 	else {
 		do_feedback(pPlayer, L"You do not have a valid target selected.");

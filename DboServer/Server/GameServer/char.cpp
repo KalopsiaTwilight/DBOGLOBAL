@@ -863,6 +863,11 @@ float CCharacter::GetAttackFollowRange()
 //-------------------------------------------------------------------//
 bool CCharacter::IsTargetAttackble(CCharacter* pTarget, WORD wRange)
 {
+	if (m_bFightBlocked)
+	{
+		return false;
+	}
+
 	if (!IsAttackable(pTarget))
 	{
 		return false;

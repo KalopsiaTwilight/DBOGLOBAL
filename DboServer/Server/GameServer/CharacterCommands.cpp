@@ -9,7 +9,7 @@ ACMD(CharacterCommands::SetSpeed)
 	float fSpeed;
 
 	if (!comutils::parse_float(strToken, fSpeed)) {
-		do_feedback(pPlayer, L"The $speed argument must be a valid floating point number. '%s' is not valid.", strToken);
+		do_feedback(pPlayer, L"The $speed argument must be a valid floating point number. '%S' is not valid.", strToken);
 		return;
 	}
 
