@@ -247,14 +247,14 @@ ACMD(do_addmob)
 	}
 
 	sVECTOR3 spawnloc;
-	spawnloc.x = pPlayer->GetCurLoc().x + rand() % 5;
+	spawnloc.x = pPlayer->GetCurLoc().x;
 	spawnloc.y = 0.0f;// pPlayer->GetCurLoc().y;
-	spawnloc.z = pPlayer->GetCurLoc().z + rand() % 5;
+	spawnloc.z = pPlayer->GetCurLoc().z;
 
 	sVECTOR3 spawndir;
-	spawndir.x = pPlayer->GetCurDir().x + rand() % 5;
+	spawndir.x = pPlayer->GetCurDir().x;
 	spawndir.y = 0.0f;// pPlayer->GetCurDir().y;
-	spawndir.z = pPlayer->GetCurDir().z + rand() % 5;
+	spawndir.z = pPlayer->GetCurDir().z;
 
 	sSPAWN_TBLDAT sMobSpawn;
 	sMobSpawn.vSpawn_Dir.CopyFrom(spawndir);
@@ -386,14 +386,14 @@ ACMD(do_addnpc)
 	}
 
 	sVECTOR3 spawnloc;
-	spawnloc.x = pPlayer->GetCurLoc().x + rand() % 5;
+	spawnloc.x = pPlayer->GetCurLoc().x;
 	spawnloc.y = pPlayer->GetCurLoc().y;
-	spawnloc.z = pPlayer->GetCurLoc().z + rand() % 5;
+	spawnloc.z = pPlayer->GetCurLoc().z;
 
 	sVECTOR3 spawndir;
-	spawndir.x = pPlayer->GetCurDir().x + rand() % 5;
+	spawndir.x = pPlayer->GetCurDir().x;
 	spawndir.y = pPlayer->GetCurDir().y;
-	spawndir.z = pPlayer->GetCurDir().z + rand() % 5;
+	spawndir.z = pPlayer->GetCurDir().z;
 
 	sSPAWN_TBLDAT sSpawn;
 	sSpawn.vSpawn_Dir.CopyFrom(spawndir);
